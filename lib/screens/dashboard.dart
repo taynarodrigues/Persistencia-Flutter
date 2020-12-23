@@ -1,6 +1,7 @@
-import 'package:ByteBankApp/screens/contact_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'contact_list.dart';
 
 class Dashboard extends StatelessWidget {
   @override
@@ -25,7 +26,7 @@ class Dashboard extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => ContactList(),
+                      builder: (context) => ContactsList(),
                     ),
                   );
                 },

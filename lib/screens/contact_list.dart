@@ -1,29 +1,100 @@
 
-import 'package:ByteBankApp/screens/contact_form.dart';
+
+
+
 import 'package:flutter/material.dart';
 
-class ContactList extends StatelessWidget {
+import '../database/app_database.dart';
+import '../models/contact.dart';
+import 'contact_form.dart';
+
+
+class ContactsList extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
-      appBar: AppBar(title: Text('Contacts'),),
-      body: ListView(
-        children: [
-          Card(child: ListTile(
-            title: Text('Tayna', style: TextStyle(fontSize: 24.0),),
-            subtitle: Text('1000', style: TextStyle(fontSize: 16.0),),
-          ),
-          )
-        ],
+      appBar: AppBar(
+        title: Text('Contacts'),
       ),
+      body: FutureBuilder<List<Contact>>(
+        initialData: List(),
+        future: findAll(),
+        builder:(context, snapshot){
+          switch(snapshot.connectionState){
+              case ConnectionState.none:
+                break;
+              case ConnectionState.waiting:
+                         return Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              CircularProgressIndicator(),
+                              Text('Loading')
+                            ], 
+                          ), 
+                        ); 
+                break;
+              case ConnectionState.active:
+                break;
+              case ConnectionState.done:
+                  final List<Contact> contacts = snapshot.data;
+                    return ListView.builder(
+                    itemBuilder: (context, index){
+                      final Contact contact = contacts[index];
+                      return _ContactItem(contact);
+        },
+        itemCount: contacts.length,
+      ); 
+                break;
+          }
+
+          return Text('Unknow ');
+
+     },
+    ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => ContactForm()
+          Navigator.of(context)
+          .push(MaterialPageRoute(
+            builder: (context) => ContactForm(),
           ),
-          ).then((newContact) => debugPrint(newContact.toString()));
+          )
+          .then(
+            (newContact) => debugPrint(newContact.toString()),
+          );
         },
         child: Icon(
           Icons.add,
+        ),
+      ),
+    );
+  }
+}
+
+class _ContactItem extends StatelessWidget {
+  final Contact contact;
+
+  _ContactItem(this.contact);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: ListTile(
+        title: Text(
+          contact.name,
+          style: TextStyle(
+            fontSize: 24.0,
+          ),
+        ),
+        subtitle: Text(
+          contact.accountNumber.toString(),
+          style: TextStyle(
+            fontSize: 16.0,
+          ),
         ),
       ),
     );
