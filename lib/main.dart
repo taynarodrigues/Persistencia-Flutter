@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
     runApp(BytebankApp());
   }
 
-
 class BytebankApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -21,7 +20,9 @@ class BytebankApp extends StatelessWidget {
             buttonColor: Colors.blueAccent[700],
             textTheme: ButtonTextTheme.primary,
           )),
+
       home: Dashboard(),
     );
   }
 }
+

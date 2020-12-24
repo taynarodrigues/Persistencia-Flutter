@@ -1,7 +1,3 @@
-
-
-
-
 import 'package:flutter/material.dart';
 
 import '../database/app_database.dart';
@@ -62,9 +58,6 @@ class ContactsList extends StatelessWidget {
           .push(MaterialPageRoute(
             builder: (context) => ContactForm(),
           ),
-          )
-          .then(
-            (newContact) => debugPrint(newContact.toString()),
           );
         },
         child: Icon(
