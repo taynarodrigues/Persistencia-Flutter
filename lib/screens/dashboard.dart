@@ -1,4 +1,5 @@
 
+import 'package:ByteBankApp/screens/transactions_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -24,24 +25,29 @@ class Dashboard extends StatelessWidget {
             child: ListView(
               scrollDirection:  Axis.horizontal,
                 children: [
-                  _FeatureItem('Transfer', Icons.monetization_on, onClick: () {
-                    _showContactList(context);
-                  },),
-                  _FeatureItem('Transaction Feed', Icons.description, onClick: () => print('transaction feed was clicked'),), 
-              ],
-              ),
-          ),         
-        ],
-      ),
-    );
-  }
-
-  void _showContactList(BuildContext context){
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => ContactsList() ,)
-    );
-  }
+                  _FeatureItem('Transfer', Icons.monetization_on, onClick: () => _showContactList(context),),
+                  _FeatureItem('Transaction Feed', Icons.description, onClick: () =>_showTransactionsList(context)), 
+                                ],
+                                ),
+                            ),         
+                          ],
+                        ),
+                      );
+                    }
+                  
+                    void _showContactList(BuildContext context){
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => ContactsList() ,)
+                      );
+                    }
+                  
+                    _showTransactionsList(BuildContext context) {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => TransactionsList() ,)
+                      );
+                    }
 }
 class _FeatureItem  extends StatelessWidget {
 
